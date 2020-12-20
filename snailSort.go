@@ -20,6 +20,8 @@ func snailSort(in interface{}) (out []interface{}) {
 		}
 	}
 
+	handleError(typeError, reflect.TypeOf(in).Kind(), "ne", reflect.Slice)
+
 	inValue := reflect.ValueOf(in)
 	inLen := inValue.Len()
 
@@ -31,7 +33,6 @@ func snailSort(in interface{}) (out []interface{}) {
 		return reflect.ValueOf(inValue.Index(i).Interface()).Len()
 	}
 
-	handleError(typeError, reflect.TypeOf(in).Kind(), "ne", reflect.Slice)
 	handleError(typeError, inLen, "eq", 0)
 	handleError(elementTypeError, getElementType(0), "ne", reflect.Slice)
 	handleError(dimensionError, getElementLen(0), "ne", inLen)
